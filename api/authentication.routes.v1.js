@@ -23,14 +23,10 @@ router.post('/login', function (req, res) {
                         "token": auth.encodeToken(results[0].email),
                     });
                 } else {
-                    res.status(401).json({
-                        "error": "Invalid credentials"
-                    });
+                    res.status(401);
                 }
             } else {
-                res.status(401).json({
-                    "error": "This email address is not registered"
-                });
+                res.status(401);
             }
         }
     });
@@ -43,9 +39,7 @@ router.post('/register', function (req, res) {
     db.query('INSERT INTO customer (email, password) VALUES (?, ?);', [email, bCrypt.hashSync(password, salt)], function (error) {
         if (error) {
             if (error.code === "ER_DUP_KEY") {
-                res.status(401).json({
-                    "error": "This email address is already registered"
-                });
+                res.status(401);
             }
         } else {
             res.status(200).json({
