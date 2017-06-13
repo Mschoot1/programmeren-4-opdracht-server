@@ -24,7 +24,7 @@ router.post('/login', function (req, res) {
                     });
                 } else {
                     console.log('Input: email = ' + email + ', password = ' + password);
-                    res.status(401).json({"error": "Invalid credentials, bye"})
+                    res.status(401);
                 }
             } else {
                 res.sendStatus(401);
@@ -37,16 +37,11 @@ router.post('/register', function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
 
-    db.query('INSERT INTO customer (email, password) VALUES (?, ?);', [email, bCrypt.hashSync(password, salt)], function (error, results) {
+    db.query('INSERT INTO customer (email, password) VALUES (?, ?);', [email, bCrypt.hashSync(password, salt)], function (error) {
         if (error) {
-            if (error.code === "ER_DUP_ENTRY") {
-                res.status(401).json({"error": "This email address is already registered"});
-            } else {
-                res.sendStatus(401);
-            }
+            res.sendStatus(401);
         } else {
-            console.log('bcrypt.hashSync(password, salt): ' + bCrypt.hashSync(password, salt));
-            res.end(JSON.stringify(results));
+            res.sendStatus(200);
         }
     });
 });
