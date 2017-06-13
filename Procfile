@@ -1,1 +1,1 @@
-web: node server.js
+web: node Programmeren-4-opdracht-server/server.js
