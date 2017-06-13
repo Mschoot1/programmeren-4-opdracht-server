@@ -23,10 +23,10 @@ router.post('/login', function (req, res) {
                         "token": auth.encodeToken(results[0].email),
                     });
                 } else {
-                    res.status(401);
+                    res.sendStatus(401);
                 }
             } else {
-                res.status(401);
+                res.sendStatus(401);
             }
         }
     });
@@ -39,12 +39,10 @@ router.post('/register', function (req, res) {
     db.query('INSERT INTO customer (email, password) VALUES (?, ?);', [email, bCrypt.hashSync(password, salt)], function (error) {
         if (error) {
             if (error.code === "ER_DUP_KEY") {
-                res.status(401);
+                res.sendStatus(401);
             }
         } else {
-            res.status(200).json({
-                "message": "Successfully registered"
-            });
+            res.sendStatus(200);
         }
     });
 });
