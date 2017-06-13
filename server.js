@@ -17,7 +17,7 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
 
 app.use(expressJWT({
-    secret: config.secretkey
+    secret: config.secretKey
 }).unless({
     path: [
         {url: '/api/v1/login', methods: ['POST']},
