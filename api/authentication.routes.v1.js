@@ -38,9 +38,7 @@ router.post('/register', function (req, res) {
 
     db.query('INSERT INTO customer (email, password) VALUES (?, ?);', [email, bCrypt.hashSync(password, salt)], function (error) {
         if (error) {
-            if (error.code === "ER_DUP_KEY") {
-                res.sendStatus(401);
-            }
+            res.sendStatus(401);
         } else {
             res.sendStatus(200);
         }
