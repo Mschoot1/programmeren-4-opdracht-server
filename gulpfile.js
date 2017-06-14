@@ -1,4 +1,5 @@
-hulp //
+hulp
+//
 // Gulpfile waarmee je, naast heel veel andere zaken, een SonarQube.com analyse kunt genereren.
 // 
 // Installeer gulp via 'npm install gulp' (zie package.json).
@@ -13,23 +14,14 @@ var runSequence = require('run-sequence');
 var istanbul = require('gulp-istanbul');
 var mocha = require('gulp-mocha');
 
-//
-// Task om Sonar analyse te genereren.
-// Voer deze uit via 'gulp sonarqube' of via npm run sonar'.
-//
 gulp.task('sonarqube', ['test'], function(callback) {
-    //
-    // Info over instellingen van sonarqubeScanner: 
-    // https://docs.sonarqube.org/display/SONAR/Analysis+Parameters
-    //
-    // ----------------------------------------------------
     sonarqubeScanner({
         serverUrl: "https://sonarqube.com",
         options: {
-            "sonar.organization": "avansinformaticabreda",
-            "sonar.projectKey": "avansinformaticabreda:master",
-            "sonar.login": "9ff8119ecea9f6c15d6c461a62dcc2d8db3439e1",
-            "sonar.projectName": "node-todolist",
+            "sonar.organization": "mschoot1-github",
+            "sonar.projectKey": "mschoot1-github:feature",
+            "sonar.login": "34dde1dd7e947f39baf6329cd8012f3dae24464b",
+            "sonar.projectName": "Programmeren-4-opdracht-server",
             "sonar.working.directory": "./.sonar",
             "sonar.tests": "test",
             "sonar.javascript.lcov.reportPath": "coverage/lcov.info",
@@ -54,9 +46,6 @@ gulp.task('pre-test', function() {
         .pipe(istanbul.hookRequire());
 });
 
-//
-// Default gulp task, moet altijd aanwezig zijn.
-//
 gulp.task('default', function() {
     runSequence('sonarqube');
 });

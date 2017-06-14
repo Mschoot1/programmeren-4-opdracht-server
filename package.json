@@ -1,4 +1,8 @@
 {
+  "keywords": [
+    "node",
+    "server"
+  ],
   "name": "programmeren-4-opdracht-server",
   "version": "1.0.0",
   "description": "programmeren 4 opdracht server",
