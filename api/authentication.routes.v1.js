@@ -44,7 +44,9 @@ router.post('/register', function (req, res) {
         if (error) {
             res.sendStatus(401);
         } else {
-            res.sendStatus(200);
+            res.status(200).json({
+                "email": email,
+                "password": password});
         }
     });
 });
