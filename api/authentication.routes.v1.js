@@ -66,7 +66,12 @@ router.post('/register', function (req, res) {
                     });
                 }
             });
-        } else {}
+        } else {
+            res.status(200).json({
+                "email": email,
+                "password": password
+            });
+        }
     } else {
         res.sendStatus(401);
     }
