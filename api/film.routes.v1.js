@@ -18,7 +18,7 @@ routes.get('/films', function(req, res) {
     console.log(query);
 
     res.contentType('application/json');
-    db.query(query, function(error, rows, fields) {
+    db.query(query, function(error, rows) {
         if(error) {
             res.status(400).json(error);
         } else {
@@ -34,7 +34,7 @@ routes.get('/films/:id', function(req, res) {
 
     console.log(queryGetFilmId);
 
-    db.query(queryGetFilmId, film_id, function(error, rows, fields) {
+    db.query(queryGetFilmId, film_id, function(error, rows) {
         if(error) {
             res.status(400).json(error);
         } else {
