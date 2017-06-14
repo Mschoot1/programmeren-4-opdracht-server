@@ -15,7 +15,7 @@ router.post('/login', function (req, res) {
 
     db.query('SELECT email, password FROM customer WHERE email = ?', [email], function (error, results) {
         if (error) {
-            throw error;
+            res.sendStatus(401);
         } else {
             if (results.length > 0) {
                 if (bCrypt.compareSync(password, results[0].password)) {
@@ -35,6 +35,10 @@ router.post('/login', function (req, res) {
 router.post('/register', function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
+
+    console.dir(req.body);
+    console.log("email: " + email);
+    console.log("password: " + password);
 
     db.query('INSERT INTO customer (email, password) VALUES (?, ?);', [email, bCrypt.hashSync(password, salt)], function (error) {
         if (error) {
