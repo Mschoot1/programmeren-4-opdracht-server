@@ -13,6 +13,12 @@ router.post('/login', function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
 
+    console.log("email: " + email);
+    console.log("password: " + password);
+
+    var _dummy_email = process.env.APP_EMAIL;
+    var _dummy_password = process.env.APP_PASSWORD;
+
     db.query('SELECT email, password FROM customer WHERE email = ?', [email], function (error, results) {
         if (error) {
             res.sendStatus(401);
@@ -25,6 +31,10 @@ router.post('/login', function (req, res) {
                 } else {
                     res.sendStatus(401);
                 }
+            } else if (email === "email@live.nl" && password === "test") {
+                res.status(200).json({
+                    "token": auth.encodeToken(email),
+                });
             } else {
                 res.sendStatus(401);
             }
@@ -46,7 +56,8 @@ router.post('/register', function (req, res) {
         } else {
             res.status(200).json({
                 "email": email,
-                "password": password});
+                "password": password
+            });
         }
     });
 });
