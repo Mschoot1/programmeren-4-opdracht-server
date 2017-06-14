@@ -5,8 +5,9 @@ var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
-var film_routes_v1 = require('./api/film.routes.v1');
 var auth_routes_v1 = require('./api/authentication.routes.v1');
+var film_routes_v1 = require('./api/film.routes.v1');
+var rental_routes_v1 = require('./api/rental.routes.v1');
 var config = require('./config/config');
 var expressJWT = require('express-jwt');
 
@@ -32,6 +33,7 @@ app.use(logger('dev'));
 
 app.use('/api/v1', auth_routes_v1);
 app.use('/api/v1', film_routes_v1);
+app.use('/api/v1', rental_routes_v1);
 
 app.use(function (err, req, res, next) {
     const error = {

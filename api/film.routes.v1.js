@@ -13,7 +13,7 @@ routes.get('/films', function(req, res) {
             res.status(401).json(error);
         } else {
             res.status(200).json({ result: rows });
-        };
+        }
     });
 });
 
@@ -32,7 +32,7 @@ routes.get('/todos/:id', function(req, res) {
             res.status(401).json(error);
         } else {
             res.status(200).json({ result: rows });
-        };
+        }
     });
 });
 
@@ -58,7 +58,7 @@ routes.post('/todos', function(req, res) {
             res.status(401).json(error);
         } else {
             res.status(200).json({ result: rows });
-        };
+        }
     });
 });
 
@@ -88,7 +88,7 @@ routes.put('/todos/:id', function(req, res) {
             res.status(401).json(error);
         } else {
             res.status(200).json({ result: rows });
-        };
+        }
     });
 });
 
@@ -116,7 +116,7 @@ routes.delete('/todos/:id', function(req, res) {
             res.status(401).json(error);
         } else {
             res.status(200).json({ result: rows });
-        };
+        }
     });
 });
 
