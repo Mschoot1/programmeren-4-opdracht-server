@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../config/db.js');
-var bCrypt = require('bcrypt');
+var bCrypt = require('bcryptjs');
 var salt = bCrypt.genSaltSync(10);
 var auth = require('../auth/authentication');
 var config = require('../config/config.json');
@@ -66,12 +66,7 @@ router.post('/register', function (req, res) {
                     });
                 }
             });
-        } else {
-            res.status(200).json({
-                "email": email,
-                "password": password
-            });
-        }
+        } else {}
     } else {
         res.sendStatus(401);
     }
