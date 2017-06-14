@@ -1,13 +1,3 @@
-hulp
-//
-// Gulpfile waarmee je, naast heel veel andere zaken, een SonarQube.com analyse kunt genereren.
-// 
-// Installeer gulp via 'npm install gulp' (zie package.json).
-// In package.json staat een script-regel om een analyse te genereren.
-// Voer deze uit via 'gulp sonarqube' of via npm run sonar'. 
-// Het resultaat van je analyse zie je - wanneer je een account hebt - 
-// op https://sonarqube.com. 
-//
 var gulp = require('gulp');
 var sonarqubeScanner = require('sonarqube-scanner');
 var runSequence = require('run-sequence');
