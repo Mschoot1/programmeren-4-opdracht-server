@@ -26,7 +26,9 @@
     "sonarqube-scanner": "^1.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node node_modules/mocha/bin/_mocha ./test/*test.js --reporter spec",
+    "sonar": "gulp sonarqube",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
