@@ -6,6 +6,7 @@ process.env.APP_PASSWORD = 'test';
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../server');
+var should = chai.should();
 
 chai.use(chaiHttp);
 
@@ -55,7 +56,7 @@ describe('Authentication routes api v1', function () {
             });
     });
 
-    it('returns a token on POST /api/v1/register with valid email', function (done) {
+    it('returns a credentials on POST /api/v1/register with valid email', function (done) {
         var email = process.env.APP_EMAIL;
         var password = process.env.APP_PASSWORD;
         var credentials = {

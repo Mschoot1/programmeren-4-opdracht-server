@@ -28,7 +28,8 @@ CREATE TABLE `customer` (
   `email` varchar(50) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`customer_id`)
+  PRIMARY KEY (`customer_id`),
+  UNIQUE (email)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
