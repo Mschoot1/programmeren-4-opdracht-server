@@ -1,6 +1,3 @@
-//
-// ./api/film.routes.v1.js
-//
 var express = require('express');
 var routes = express.Router();
 var db = require('../config/db');
@@ -12,7 +9,7 @@ routes.get('/films', function(req, res) {
 
     var query = 'SELECT * FROM `1082`.film LIMIT ' + count + ' OFFSET ' + offset;
 
-    console.log('Waarde van ' + '\n\ +' +
+    console.log('Waarde van ' + '\n' +
         'offset: ' + offset + '\n' +
         'count: ' + count);
     console.log(query);

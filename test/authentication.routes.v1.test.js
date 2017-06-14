@@ -56,12 +56,13 @@ describe('Authentication routes api v1', function () {
             });
     });
 
-    it('returns a credentials on POST /api/v1/register with valid email', function (done) {
+    it('returns credentials on POST /api/v1/register with valid email', function (done) {
         var email = process.env.APP_EMAIL;
         var password = process.env.APP_PASSWORD;
+
         var credentials = {
             email: email,
-            password: process.env.APP_PASSWORD
+            password: password
         };
         chai.request(server)
             .post('/api/v1/register')
