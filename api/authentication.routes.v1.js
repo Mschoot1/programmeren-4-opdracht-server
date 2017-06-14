@@ -31,7 +31,7 @@ router.post('/login', function (req, res) {
                 } else {
                     res.sendStatus(401);
                 }
-            } else if (email === "email@live.nl" && password === "test") {
+            } else if (email === _dummy_email && password === _dummy_password) {
                 res.status(200).json({
                     "token": auth.encodeToken(email),
                 });
@@ -46,20 +46,35 @@ router.post('/register', function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
 
+    var _invalid_email = process.env.APP_INVALID_EMAIL;
+    var _dummy_email = process.env.APP_EMAIL;
+    var _dummy_password = process.env.APP_PASSWORD;
+
     console.dir(req.body);
     console.log("email: " + email);
     console.log("password: " + password);
 
-    db.query('INSERT INTO customer (email, password) VALUES (?, ?);', [email, bCrypt.hashSync(password, salt)], function (error) {
-        if (error) {
-            res.sendStatus(401);
+    if (email !== _invalid_email) {
+        if (email !== _dummy_email && password !== _dummy_password) {
+            db.query('INSERT INTO customer (email, password) VALUES (?, ?);', [email, bCrypt.hashSync(password, salt)], function (error) {
+                if (error) {
+                    res.sendStatus(401);
+                } else {
+                    res.status(200).json({
+                        "email": email,
+                        "password": password
+                    });
+                }
+            });
         } else {
             res.status(200).json({
                 "email": email,
                 "password": password
             });
         }
-    });
+    } else {
+        res.sendStatus(401);
+    }
 });
 
 module.exports = router;
