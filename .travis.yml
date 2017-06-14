@@ -8,6 +8,7 @@ node_js:
 before_script:
   - npm install chai chai-http mocha
   - npm install
+  - npm install bcrypt
 script: 
   - npm test
 notifications:
