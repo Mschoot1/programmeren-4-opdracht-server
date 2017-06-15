@@ -2,10 +2,10 @@ var express = require('express');
 var routes = express.Router();
 var db = require('../config/db');
 
-routes.get('/rentals/:customerId', function (req, res) {
-    var customerId = req.params.customerId;
+routes.get('/rentals/inventory/:inventory_id', function (req, res) {
+    var inventory_id = req.params.inventory_id;
     res.contentType('application/json');
-    db.query('SELECT * FROM rental WHERE customer_id = ? LIMIT 10;', [customerId], function (error, rows) {
+    db.query('SELECT * FROM rental WHERE inventory_id = ? LIMIT 10;', [inventory_id], function (error, rows) {
         if (error) {
             res.status(401).json(error);
         } else {
