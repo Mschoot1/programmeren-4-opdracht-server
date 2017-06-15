@@ -1,6 +1,3 @@
-//
-// ./api/film.routes.v1.js
-//
 var express = require('express');
 var routes = express.Router();
 var db = require('../config/db');
@@ -8,8 +5,7 @@ var db = require('../config/db');
 routes.get('/rentals/:customerId', function (req, res) {
     var customerId = req.params.customerId;
     res.contentType('application/json');
-
-    db.query('SELECT * FROM `1082`.rental WHERE customer_id = ? LIMIT 10;', [customerId], function (error, rows) {
+    db.query('SELECT * FROM rental WHERE customer_id = ? LIMIT 10;', [customerId], function (error, rows) {
         if (error) {
             res.status(401).json(error);
         } else {
