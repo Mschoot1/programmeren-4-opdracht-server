@@ -14,6 +14,18 @@ routes.get('/rentals/inventory/:inventory_id', function (req, res) {
     });
 });
 
+routes.get('/rentals/customer/:customer_id', function (req, res) {
+    var customer_id = req.params.customer_id;
+    res.contentType('application/json');
+    db.query('SELECT * FROM rental WHERE customer_id = ? LIMIT 10;', [customer_id], function (error, rows) {
+        if (error) {
+            res.status(401).json(error);
+        } else {
+            res.status(200).json({result: rows});
+        }
+    });
+});
+
 routes.post('/rentals/:customer_id/:inventory_id', function (req, res) {
     var customer_id = req.params.customer_id;
     var inventory_id = req.params.inventory_id;

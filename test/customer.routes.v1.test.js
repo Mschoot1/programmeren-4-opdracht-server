@@ -31,31 +31,4 @@ describe('rental routes api v1', function () {
             });
     });
 
-    it('returns 0 on GET /api/v1/rentals/:customer_id when logged in', function (done) {
-        chai.request(server)
-            .get('/api/v1/rentals/customer/' + customer_id)
-            .set('Authorization', 'Bearer ' + token)
-            .end(function (err, res) {
-                console.dir(err);
-                res.should.have.status(200);
-                res.should.be.json;
-                res.body.should.be.a('object');
-                res.body.should.have.property('result').that.is.an('array').with.lengthOf(0);
-                done();
-            });
-    });
-
-    it('returns error on GET /api/v1/rentals/:customer_id when logged in', function (done) {
-        chai.request(server)
-            .get('/api/v1/rentals/customer/' + customer_id)
-            .set('Authorization', 'Bearer ' + token)
-            .end(function (err, res) {
-                console.dir(err);
-                res.should.have.status(200);
-                res.should.be.json;
-                res.body.should.be.a('object');
-                res.body.should.have.property('result').that.is.an('array').with.lengthOf(0);
-                done();
-            });
-    });
 });

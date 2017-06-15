@@ -6,7 +6,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var auth_routes_v1 = require('./api/authentication.routes.v1');
-var customer_routes_v1 = require('./api/customer.routes.v1');
 var film_routes_v1 = require('./api/film.routes.v1');
 var inventory_routes_v1 = require('./api/inventory.routes.v1');
 var rental_routes_v1 = require('./api/rental.routes.v1');
@@ -35,7 +34,6 @@ app.set('env', 'development');
 app.use(logger('dev'));
 
 app.use('/api/v1', auth_routes_v1);
-app.use('/api/v1', customer_routes_v1);
 app.use('/api/v1', film_routes_v1);
 app.use('/api/v1', inventory_routes_v1);
 app.use('/api/v1', rental_routes_v1);
