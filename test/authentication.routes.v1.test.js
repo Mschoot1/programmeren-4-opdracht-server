@@ -1,4 +1,5 @@
 process.env.NODE_ENV = 'test';
+process.env.APP_CUSTOMER_ID = '1';
 process.env.APP_EMAIL = 'email@live.nl';
 process.env.APP_INVALID_EMAIL = 'invalid';
 process.env.APP_PASSWORD = 'test';
