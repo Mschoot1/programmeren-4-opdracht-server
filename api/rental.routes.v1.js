@@ -17,7 +17,12 @@ routes.get('/rentals/inventory/:inventory_id', function (req, res) {
 routes.get('/rentals/customer/:customer_id', function (req, res) {
     var customer_id = req.params.customer_id;
     res.contentType('application/json');
-    db.query('SELECT * FROM rental WHERE customer_id = ? ORDER BY ISNULL(return_date) DESC LIMIT 10;', [customer_id], function (error, rows) {
+    db.query('SELECT rental_id, rental_date, inventory.inventory_id, customer_id, rental.return_date, film.title ' +
+    'FROM rental ' +
+    'JOIN inventory ON inventory.inventory_id = rental.inventory_id ' +
+    'JOIN film ON film.film_id = inventory.film_id ' +
+    'WHERE rental.customer_id = ? ' +
+    'ORDER BY ISNULL(return_date) DESC , return_date DESC , rental.inventory_id ASC;', [customer_id], function (error, rows) {
         if (error) {
             res.status(401).json(error);
         } else {
