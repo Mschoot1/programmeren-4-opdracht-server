@@ -52,18 +52,15 @@ routes.post('/rentals/:customer_id/:inventory_id', function (req, res) {
     }
 });
 
-routes.put('/rentals/:customer_id/:inventory_id', function (req, res) {
+routes.put('/rentals/:inventory_id', function (req, res) {
     var return_date = new Date().toISOString();
-    var customer_id = req.params.customer_id;
     var inventory_id = req.params.inventory_id;
-
-    db.query('UPDATE rental SET return_date = ? WHERE customer_id = ? AND inventory_id = ?;', [return_date, customer_id, inventory_id], function (error) {
+    db.query('UPDATE rental SET return_date = ? WHERE inventory_id = ? AND ISNULL(return_date);', [return_date, inventory_id], function (error) {
         if (error) {
             res.status(401).json(error);
         } else {
             res.status(200).json({
                 "return_date": return_date,
-                "customer_id": customer_id,
                 "inventory_id": inventory_id
             });
         }

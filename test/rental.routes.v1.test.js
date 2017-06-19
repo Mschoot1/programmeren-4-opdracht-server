@@ -91,19 +91,17 @@ describe('rental routes api v1', function () {
             });
     });
 
-    it('returns a body on PUT /api/v1/rentals/:customer_id/:inventory_id when logged in', function (done) {
-        var customer_id = process.env.CUSTOMER_ID;
+    it('returns a body on PUT /api/v1/rentals/:inventory_id when logged in', function (done) {
         var inventory_id = process.env.INVENTORY_ID;
 
         chai.request(server)
-            .put('/api/v1/rentals/' + customer_id + '/' + inventory_id)
+            .put('/api/v1/rentals/' + inventory_id)
             .set('Authorization', 'Bearer ' + token)
             .end(function (err, res) {
                 console.dir(err);
                 res.should.have.status(200);
                 res.should.be.json;
                 res.body.should.be.a('object');
-                res.body.should.have.property('customer_id').that.is.a('string').equal(customer_id);
                 res.body.should.have.property('inventory_id').that.is.a('string').equal(inventory_id);
                 res.body.should.have.property('return_date').that.is.a('string');
                 done();

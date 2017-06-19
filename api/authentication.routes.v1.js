@@ -20,6 +20,8 @@ router.post('/login', function (req, res) {
     var _dummy_email = process.env.APP_EMAIL;
     var _dummy_password = process.env.APP_PASSWORD;
 
+    var UNDEFINED = 'undefined';
+
     db.query('SELECT email, password, customer_id FROM customer WHERE email = ?', [email], function (error, results) {
         if (error) {
             res.sendStatus(401);
@@ -32,7 +34,7 @@ router.post('/login', function (req, res) {
                 } else {
                     res.sendStatus(401);
                 }
-            } else if (email === _dummy_email && password === _dummy_password) {
+            } else if ((email === _dummy_email && password === _dummy_password) && !(typeof email === UNDEFINED && typeof password === UNDEFINED)) {
                 res.status(200).json({
                     "token": auth.encodeToken(_dummy_customer_id),
                 });
