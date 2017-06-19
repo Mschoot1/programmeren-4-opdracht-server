@@ -13,6 +13,7 @@ describe('Film routes api v1', function () {
             .get('/api/v1/films?offset=' + offset + '&count=' + count)
             .end(function (err, res) {
                 res.should.have.status(200);
+                res.should.be.json;
                 res.body.should.be.an('object');
                 res.body.should.have.property('result').that.is.an('array').that.is.length(1);
                 done();
@@ -25,6 +26,7 @@ describe('Film routes api v1', function () {
             .get('/api/v1/films/' + id)
             .end(function (err, res) {
                 res.should.have.status(200);
+                res.should.be.json;
                 res.body.should.be.an('object');
                 res.body.should.have.property('result').that.is.an('array').that.is.length(0);
                 done();
