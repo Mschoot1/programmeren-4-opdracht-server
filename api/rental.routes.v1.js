@@ -2,10 +2,27 @@ var express = require('express');
 var routes = express.Router();
 var db = require('../config/db');
 
-routes.get('/rentals/:customerId', function (req, res) {
-    var customerId = req.params.customerId;
+routes.get('/rentals/inventory/:inventory_id', function (req, res) {
+    var inventory_id = req.params.inventory_id;
     res.contentType('application/json');
-    db.query('SELECT * FROM rental WHERE customer_id = ? LIMIT 10;', [customerId], function (error, rows) {
+    db.query('SELECT * FROM rental WHERE inventory_id = ? AND ISNULL(return_date) LIMIT 10;', [inventory_id], function (error, rows) {
+        if (error) {
+            res.status(401).json(error);
+        } else {
+            res.status(200).json({result: rows});
+        }
+    });
+});
+
+routes.get('/rentals/customer/:customer_id', function (req, res) {
+    var customer_id = req.params.customer_id;
+    res.contentType('application/json');
+    db.query('SELECT rental_id, rental_date, inventory.inventory_id, customer_id, rental.return_date, film.title ' +
+    'FROM rental ' +
+    'JOIN inventory ON inventory.inventory_id = rental.inventory_id ' +
+    'JOIN film ON film.film_id = inventory.film_id ' +
+    'WHERE rental.customer_id = ? ' +
+    'ORDER BY ISNULL(return_date) DESC , return_date DESC , rental.inventory_id ASC;', [customer_id], function (error, rows) {
         if (error) {
             res.status(401).json(error);
         } else {
@@ -27,8 +44,8 @@ routes.post('/rentals/:customer_id/:inventory_id', function (req, res) {
                 res.status(401).json(error);
             } else {
                 res.status(200).json({
-                    "customer_id": customer_id,
-                    "inventory_id": inventory_id
+                    "customer_id": parseInt(customer_id),
+                    "inventory_id": parseInt(inventory_id)
                 });
             }
         });
@@ -40,19 +57,15 @@ routes.post('/rentals/:customer_id/:inventory_id', function (req, res) {
     }
 });
 
-routes.put('/rentals/:customer_id/:inventory_id', function (req, res) {
-    var return_date = req.body.return_date;
-
-    var customer_id = req.params.customer_id;
+routes.put('/rentals/:inventory_id', function (req, res) {
+    var return_date = new Date().toISOString();
     var inventory_id = req.params.inventory_id;
-
-    db.query('UPDATE rental SET return_date = ? WHERE customer_id = ? AND inventory_id = ?;', [return_date, customer_id, inventory_id], function (error) {
+    db.query('UPDATE rental SET return_date = ? WHERE inventory_id = ? AND ISNULL(return_date);', [return_date, inventory_id], function (error) {
         if (error) {
             res.status(401).json(error);
         } else {
             res.status(200).json({
                 "return_date": return_date,
-                "customer_id": customer_id,
                 "inventory_id": inventory_id
             });
         }
