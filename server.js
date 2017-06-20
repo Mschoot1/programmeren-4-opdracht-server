@@ -24,8 +24,7 @@ app.use(expressJWT({
     path: [
         {url: '/api/v1/login', methods: ['POST']},
         {url: '/api/v1/register', methods: ['POST']},
-        {url: /\/films\/*/, methods: ['GET']},
-        {url: /\/inventories\/*/, methods: ['GET']}
+        {url: /\/films\/*/, methods: ['GET']}
     ]
 }));
 

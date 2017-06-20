@@ -16,24 +16,27 @@ router.post('/login', function (req, res) {
     console.log("email: " + email);
     console.log("password: " + password);
 
+    var _dummy_customer_id = process.env.APP_CUSTOMER_ID;
     var _dummy_email = process.env.APP_EMAIL;
     var _dummy_password = process.env.APP_PASSWORD;
 
-    db.query('SELECT email, password FROM customer WHERE email = ?', [email], function (error, results) {
+    var UNDEFINED = 'undefined';
+
+    db.query('SELECT email, password, customer_id FROM customer WHERE email = ?', [email], function (error, results) {
         if (error) {
             res.sendStatus(401);
         } else {
             if (results.length > 0) {
                 if (bCrypt.compareSync(password, results[0].password)) {
                     res.status(200).json({
-                        "token": auth.encodeToken(results[0].email),
+                        "token": auth.encodeToken(results[0].customer_id),
                     });
                 } else {
                     res.sendStatus(401);
                 }
-            } else if (email === _dummy_email && password === _dummy_password) {
+            } else if ((email === _dummy_email && password === _dummy_password) && !(typeof email === UNDEFINED && typeof password === UNDEFINED)) {
                 res.status(200).json({
-                    "token": auth.encodeToken(email),
+                    "token": auth.encodeToken(_dummy_customer_id),
                 });
             } else {
                 res.sendStatus(401);

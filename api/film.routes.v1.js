@@ -4,8 +4,8 @@ var db = require('../config/db');
 
 // api/v1/films?offset=:start&count=:number
 routes.get('/films', function(req, res) {
-    var offset = req.query.offset;
-    var count = req.query.count;
+    var offset = req.query.offset || 0;
+    var count = req.query.count || 0;
 
     var query = 'SELECT * FROM `1082`.film LIMIT ' + count + ' OFFSET ' + offset;
 
