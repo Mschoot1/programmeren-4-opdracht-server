@@ -27,14 +27,14 @@ describe('rental routes api v1', function () {
             .end(function (err, res) {
                 res.body.should.be.an('object');
                 res.body.should.have.property('token');
-                token = res.body.token;
+                let token = res.body.token;
                 done();
             });
     });
 
     it('returns an array on GET /api/v1/rentals/inventory/:inventory_id when logged in', function (done) {
        chai.request(server)
-           .get('/api/v1/rentals/inventory/' + inventory_id)
+           .get('/api/v1/rentals/inventory/:inventory_id')
            .set('Authorization', 'Bearer ' + token)
            .end(function (err, res) {
                console.dir(err);
