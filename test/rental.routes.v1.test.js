@@ -27,7 +27,7 @@ describe('rental routes api v1', function () {
             .end(function (err, res) {
                 res.body.should.be.an('object');
                 res.body.should.have.property('token');
-                let token = res.body.token;
+                token = res.body.token;
                 done();
             });
     });
