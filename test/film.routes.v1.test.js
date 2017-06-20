@@ -19,14 +19,13 @@ describe('Film routes api v1', function () {
     });
 
     it('returns a body on GET /api/v1/films/:id', function (done) {
-        var id = -1;
         chai.request(server)
-            .get('/api/v1/films/' + id)
+            .get('/api/v1/films/:filmdId')
             .end(function (err, res) {
                 res.should.have.status(200);
                 res.should.be.json;
                 res.body.should.be.an('object');
-                res.body.should.have.property('result').that.is.an('array').that.is.length(0);
+                res.body.should.have.property('result').that.is.an('array');
                 done();
             });
     });
