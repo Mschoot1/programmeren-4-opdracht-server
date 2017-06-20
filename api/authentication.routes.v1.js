@@ -8,6 +8,7 @@ var bCrypt = require('bcryptjs');
 var salt = bCrypt.genSaltSync(10);
 var auth = require('../auth/authentication');
 var config = require('../config/config.json');
+var expressJWT = require('express-jwt');
 
 router.post('/login', function (req, res) {
     var email = req.body.email;
@@ -29,7 +30,7 @@ router.post('/login', function (req, res) {
             if (results.length > 0) {
                 if (bCrypt.compareSync(password, results[0].password)) {
                     res.status(200).json({
-                        "token": auth.encodeToken(results[0].customer_id),
+                        "token": auth.encodeToken(results[0].customer_id)
                     });
                 } else {
                     res.sendStatus(401);

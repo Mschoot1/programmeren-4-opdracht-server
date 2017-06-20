@@ -10,6 +10,7 @@ var server = require('../server');
 var should = chai.should();
 
 var customer_id = process.env.CUSTOMER_ID;
+var inventory_id = process.env.INVENTORY_ID;
 
 chai.use(chaiHttp);
 
@@ -29,6 +30,20 @@ describe('rental routes api v1', function () {
                 token = res.body.token;
                 done();
             });
+    });
+
+    it('returns an array on GET /api/v1/rentals/inventory/:inventory_id when logged in', function (done) {
+       chai.request(server)
+           .get('/api/v1/rentals/inventory/:inventory_id')
+           .set('Authorization', 'Bearer ' + token)
+           .end(function (err, res) {
+               console.dir(err);
+               res.should.have.status(200);
+               res.should.be.json;
+               res.body.should.be.a('object');
+               res.body.should.have.property('result').that.is.an('array');
+               done();
+           });
     });
 
     it('returns 0 on GET /api/v1/rentals/customer/:customer_id when logged in', function (done) {
